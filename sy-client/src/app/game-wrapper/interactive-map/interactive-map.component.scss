@@ -1,0 +1,26 @@
+.map-container{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    overflow: hidden;
+
+    .map{
+        position: absolute;
+        top: 0;
+        left: 0;
+        // transform: translate(-50%, -50%);
+        width: 2162px;
+        height: 1620px;
+        background-image: url('../../../../public/map-tk.webp');
+        background-color: #000000;
+        overflow: hidden;
+    }
+
+    .map:active {
+        cursor: grabbing;
+    }
+}
+
+
+
