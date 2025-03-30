@@ -18,6 +18,9 @@ export class InteractiveMapComponent {
   currentY:number = 0;
   mapPosX:number = 0;
   mapPosY:number = 0;
+  mapScale:number = 4.5;
+  shiftX:number = 0;
+  shiftY:number = 0;
 
 
   onMouseDown(event:MouseEvent) {
@@ -35,18 +38,48 @@ export class InteractiveMapComponent {
     this.mapPosY = this.mapY + this.currentY - this.curStartY ; 
     if (this.isDragging && this.mapPosX < 0 && this.mapPosX > -this.mapRef.nativeElement.offsetWidth + window.innerWidth) {
       this.mapRef.nativeElement.style.left = this.mapPosX + 'px';
-    }else{
-      this.curStartX = this.currentX;
     }
     if (this.isDragging && this.mapPosY < 0 && this.mapPosY > -this.mapRef.nativeElement.offsetHeight + window.innerHeight) {
       this.mapRef.nativeElement.style.top = this.mapPosY + 'px';
-    }else{
-      this.curStartY = this.currentY;
     }
   }
 
   onMouseUp() {
     this.isDragging = false;
+  }
+
+
+  onZoom(event:WheelEvent) {
+    this.shiftX = (event.clientX - this.mapRef.nativeElement.getBoundingClientRect().left) * ((event.deltaY * 0.001))/this.mapScale;
+    this.shiftY = (event.clientY - this.mapRef.nativeElement.getBoundingClientRect().top) * ((event.deltaY * 0.001))/this.mapScale;
+    this.mapScale = Math.round((this.mapScale + event.deltaY * 0.001) * 100) / 100;
+    if (this.mapScale * 514 > window.screen.width +200 && this.mapScale < 6) {
+      this.mapRef.nativeElement.style.width = this.mapScale * 514 + 'px';
+      this.mapRef.nativeElement.style.height = this.mapScale * 385 + 'px';
+      // console.log(this.shiftX, this.shiftY);
+      this.mapRef.nativeElement.style.left = this.mapRef.nativeElement.getBoundingClientRect().left - this.shiftX + 'px';
+      this.mapRef.nativeElement.style.top = this.mapRef.nativeElement.getBoundingClientRect().top - this.shiftY + 'px';
+      if (this.mapRef.nativeElement.getBoundingClientRect().left > 0) {
+        console.log("hell1")
+        this.mapRef.nativeElement.style.left = 0 + 'px';
+      }
+      if (this.mapRef.nativeElement.getBoundingClientRect().top > 0) {
+        console.log("hell2")
+        this.mapRef.nativeElement.style.top = 0 + 'px';
+      }
+      if (this.mapRef.nativeElement.getBoundingClientRect().left + (this.mapScale * 514) < window.innerWidth) { 
+        console.log("hell3")
+        this.mapRef.nativeElement.style.left = -(this.mapRef.nativeElement.getBoundingClientRect().width - window.innerWidth )+ 'px';
+      }
+      if (this.mapRef.nativeElement.getBoundingClientRect().top + (this.mapScale * 385) < window.innerHeight) {
+        console.log("hell4")
+        this.mapRef.nativeElement.style.top = -(this.mapRef.nativeElement.getBoundingClientRect().height - window.innerHeight )+ 'px';
+      }
+    }else if (this.mapScale >= 6) {
+      this.mapScale = 6;
+    }else if (this.mapScale * 514 < window.screen.width+200) {
+      this.mapScale = (window.screen.width + 200)/ 514;
+    }
   }
 }
 
