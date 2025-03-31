@@ -1,4 +1,4 @@
-export interface Node{
+export interface Node {
     node_number: number;
     coordinates: {
         x: number;

@@ -1,7 +1,6 @@
 import {Node} from './node.interface';
 
-export const nodes: Node[] = 
-[
+export const nodes: Node[] = [
     {"node_number":1,"coordinates":{"x":318,"y":78},"moves":[{"to":8,"transport":"taxi"},{"to":9,"transport":"taxi"},{"to":58,"transport":"bus"},{"to":46,"transport":"bus"},{"to":46,"transport":"underground"}]},
     {"node_number":2,"coordinates":{"x":782,"y":42},"moves":[{"to":20,"transport":"taxi"},{"to":10,"transport":"taxi"}]},
     {"node_number":3,"coordinates":{"x":1082,"y":48},"moves":[{"to":11,"transport":"taxi"},{"to":12,"transport":"taxi"},{"to":4,"transport":"taxi"},{"to":22,"transport":"bus"},{"to":23,"transport":"bus"}]},

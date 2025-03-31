@@ -1,11 +1,11 @@
-.map-container{
+.map-container {
     position: relative;
     width: 100vw;
     height: 100vh;
     background-color: #000000;
     overflow: hidden;
 
-    .map{
+    .map {
         position: absolute;
         top: 0;
         left: 0;
@@ -14,7 +14,7 @@
         // width: 2000px;
         height: calc(385 * 4.5px);
         // height: 1500px;
-        background-image: url('../../../../public/map-tk.webp');
+        background-image: url("../../../../public/map-tk.webp");
         background-color: #000000;
         background-size: contain;
         overflow: hidden;
@@ -24,6 +24,3 @@
         cursor: grabbing;
     }
 }
-
-
-
