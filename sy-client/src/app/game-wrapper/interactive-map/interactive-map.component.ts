@@ -1,8 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { PathNodeComponent } from './path-node/path-node.component';
+import { Node } from '../../interfaces/node.interface';
+import { nodes } from '../../interfaces/nodes';
 
 @Component({
     selector: 'app-interactive-map',
-    imports: [],
+    imports: [PathNodeComponent],
     templateUrl: './interactive-map.component.html',
     styleUrl: './interactive-map.component.scss',
 })
@@ -18,9 +21,12 @@ export class InteractiveMapComponent {
     currentY: number = 0;
     mapPosX: number = 0;
     mapPosY: number = 0;
-    mapScale: number = 4.5;
+    mapScale: number = 5;
     shiftX: number = 0;
     shiftY: number = 0;
+
+    // Define the nodes array with the Node interface
+    nodes: Node[] = nodes;
 
     onMouseDown(event: MouseEvent) {
         this.isDragging = true;
@@ -89,5 +95,6 @@ export class InteractiveMapComponent {
         } else if (this.mapScale * 514 < window.screen.width + 200) {
             this.mapScale = (window.screen.width + 200) / 514;
         }
+        // console.log(this.mapScale, this.mapRef.nativeElement.getBoundingClientRect().width);
     }
 }
