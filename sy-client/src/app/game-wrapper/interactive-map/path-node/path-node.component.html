@@ -1,8 +1,11 @@
-<div class="node-container" #nodeContainer
-[style.left.px]="node.coordinates.x" 
-[style.top.px]="node.coordinates.y"
-style="transform: translate(-50%, -50%)" >
+<div
+    class="node-container"
+    #nodeContainer
+    [style.left.px]="node.coordinates.x"
+    [style.top.px]="node.coordinates.y"
+    style="transform: translate(-50%, -50%)"
+>
     <div class="upper-semicircle"></div>
-    <div class="mid-square" [ngClass]="{'mid-underground': this.underground}">{{node.node_number}}</div>
-    <div class="lower-semicircle" [ngClass]="{'lower-bus': this.bus}"></div>
+    <div class="mid-square" [ngClass]="{ 'mid-underground': this.underground }">{{ node.node_number }}</div>
+    <div class="lower-semicircle" [ngClass]="{ 'lower-bus': this.bus }"></div>
 </div>

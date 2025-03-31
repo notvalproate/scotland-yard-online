@@ -8,11 +8,8 @@
         (mouseleave)="onMouseUp()"
         (wheel)="onZoom($event)"
     >
-        @for (node of nodes; track node.node_number){
-            <app-path-node class="node-container" 
-            [mapScale]="mapScale" 
-            [node] = "node"
-            > </app-path-node>
+        @for (node of nodes; track node.node_number) {
+            <app-path-node class="node-container" [mapScale]="mapScale" [node]="node"> </app-path-node>
         }
     </div>
 </div>

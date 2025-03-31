@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, ViewChild, OnInit, ElementRef, NgModule } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'app-path-node',
@@ -7,14 +7,14 @@ import { Component, Input, ViewChild, OnInit, ElementRef, NgModule } from '@angu
     templateUrl: './path-node.component.html',
     styleUrl: './path-node.component.scss',
 })
-export class PathNodeComponent implements OnInit{
+export class PathNodeComponent implements OnInit {
     @ViewChild('nodeContainer') pathNodeRef!: ElementRef;
     @Input() mapScale: any;
     @Input() node: any;
-    taxi:boolean = false;
-    bus:boolean = false;
-    underground:boolean = false;
-    ferry:boolean = false;
+    taxi: boolean = false;
+    bus: boolean = false;
+    underground: boolean = false;
+    ferry: boolean = false;
 
     ngOnInit(): void {
         for (let i = 0; i < this.node.moves.length; i++) {
@@ -34,11 +34,10 @@ export class PathNodeComponent implements OnInit{
     ngOnChanges() {
         if (this.mapScale * 514 > window.screen.width + 200 && this.mapScale < 6 && this.pathNodeRef) {
             console.log('mapScale', this.mapScale);
-            this.pathNodeRef.nativeElement.style.left = (this.node.coordinates.x * this.mapScale/5) + 'px';
-            this.pathNodeRef.nativeElement.style.top = (this.node.coordinates.y * this.mapScale/5) + 'px';
-            this.pathNodeRef.nativeElement.style.width = (42 * this.mapScale/5) + 'px';
-            this.pathNodeRef.nativeElement.style.height = (42 * this.mapScale/5) + 'px';
+            this.pathNodeRef.nativeElement.style.left = (this.node.coordinates.x * this.mapScale) / 5 + 'px';
+            this.pathNodeRef.nativeElement.style.top = (this.node.coordinates.y * this.mapScale) / 5 + 'px';
+            this.pathNodeRef.nativeElement.style.width = (42 * this.mapScale) / 5 + 'px';
+            this.pathNodeRef.nativeElement.style.height = (42 * this.mapScale) / 5 + 'px';
         }
     }
-    
 }

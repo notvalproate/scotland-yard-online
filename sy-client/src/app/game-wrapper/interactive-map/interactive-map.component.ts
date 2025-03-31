@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { PathNodeComponent } from './path-node/path-node.component';
 import { Node } from '../../interfaces/node.interface';
 import { nodes } from '../../interfaces/nodes';
+import { PathNodeComponent } from './path-node/path-node.component';
 
 @Component({
     selector: 'app-interactive-map',

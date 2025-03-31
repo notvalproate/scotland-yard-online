@@ -10,22 +10,21 @@
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
 
-
-    .upper-semicircle{
+    .upper-semicircle {
         position: relative;
         width: 100%;
         height: 50%;
-        background-color: #DEDE00;
+        background-color: #dede00;
         // clip-path: circle(60% at 50% 100%);
         border: #000000 1px solid;
         border-radius: 50px 50px 0 0;
     }
 
-    .lower-semicircle{
+    .lower-semicircle {
         position: relative;
         width: 100%;
         height: 50%;
-        background-color: #DEDE00;
+        background-color: #dede00;
         // clip-path: circle(60% at 50% 0%);
         border-bottom: #000000 1px solid;
         border-left: #000000 1px solid;
@@ -33,7 +32,7 @@
         border-radius: 0 0 50px 50px;
     }
 
-    .mid-square{
+    .mid-square {
         position: absolute;
         width: 70%;
         height: 50%;
@@ -46,17 +45,17 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: "Courier New", Courier, monospace;
         font-size: 80%;
         font-weight: bold;
         letter-spacing: -1px;
     }
 
-    .lower-bus{
-        background-color: #389A99;
+    .lower-bus {
+        background-color: #389a99;
     }
 
-    .mid-underground{
+    .mid-underground {
         background-color: #fa2d2d;
     }
 }
