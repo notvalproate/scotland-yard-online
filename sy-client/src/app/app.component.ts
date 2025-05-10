@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { GameWrapperComponent } from './game-wrapper/game-wrapper.component';
+import { GameCanvasComponent } from "./game-canvas/game-canvas.component";
+import { GameOverlayComponent } from "./game-overlay/game-overlay.component";
 
 @Component({
     selector: 'app-root',
-    imports: [GameWrapperComponent],
+    imports: [GameCanvasComponent, GameOverlayComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })

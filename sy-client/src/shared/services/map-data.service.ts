@@ -15,14 +15,14 @@ export class MapDataService {
         this.populateNodesWithEdges();
     }
 
-    public getNode(id: number) {
+    public getNode(id: number): Node {
         if (id <= 0 || id > this.nodes.length) {
             throw RangeError(`Node ID: ${id} is out of bounds`);
         }
         return this.nodes[id - 1];
     }
 
-    private populateNodesWithEdges() {
+    private populateNodesWithEdges(): void {
         for(const edge of this.edges) {
             this.getNode(edge.first).edges.push(edge);
             this.getNode(edge.second).edges.push(edge);
