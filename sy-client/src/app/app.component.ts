@@ -7,6 +7,4 @@ import { GameWrapperComponent } from './game-wrapper/game-wrapper.component';
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })
-export class AppComponent {
-    title = 'sy-client';
-}
+export class AppComponent {}
