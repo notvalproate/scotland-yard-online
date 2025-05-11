@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 // import { nodes } from '../../../shared/interfaces/nodes';
 import { MapDataService } from '../../../shared/services/map-data.service';
 import { PathNodeComponent } from './path-node/path-node.component';

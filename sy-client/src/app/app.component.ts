@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { GameCanvasComponent } from "./game-canvas/game-canvas.component";
-import { GameOverlayComponent } from "./game-overlay/game-overlay.component";
+import { GameCanvasComponent } from './game-canvas/game-canvas.component';
+import { GameOverlayComponent } from './game-overlay/game-overlay.component';
 
 @Component({
     selector: 'app-root',
