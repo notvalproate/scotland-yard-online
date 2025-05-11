@@ -13,19 +13,36 @@ export class CameraService {
         this.onResize();
     }
 
+    getPosition(): Vector2 {
+        return this.position;
+    }
+
+    setPosition(point: Vector2): void {
+        this.position = point;
+    }
+
+    getScale(): number {
+        return this.scale;
+    }
+
+    setScale(value: number): void {
+        if (value <= 0) {
+            return;
+        }
+        this.scale = value;
+    }
+
     worldToScreenPoint(point: Vector2): Vector2 {
-        // have to move acc to screen width and height
         return {
-            x: (point.x - this.position.x) * this.scale,
-            y: (point.y - this.position.y) * this.scale,
+            x: (this.viewport.x / 2) + ((point.x - this.position.x) * this.scale),
+            y: (this.viewport.y / 2) - ((point.y - this.position.y) * this.scale)
         };
     }
 
     screenToWorldPoint(point: Vector2): Vector2 {
-        // have to move acc to screen width and height
         return {
-            x: point.x / this.scale + this.position.x,
-            y: point.y / this.scale + this.position.y,
+            x: this.position.x + (point.x - (this.viewport.x / 2)) / this.scale,
+            y: this.position.y + ((this.viewport.y / 2) - point.y) / this.scale
         };
     }
 
@@ -34,6 +51,5 @@ export class CameraService {
             x: window.innerWidth,
             y: window.innerHeight,
         };
-        console.log(this.viewport);
     }
 }
