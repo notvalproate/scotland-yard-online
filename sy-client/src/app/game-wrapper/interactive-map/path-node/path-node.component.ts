@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Node } from '../../../../shared/interfaces/node.interface';
+import { TransportMethod } from '../../../../shared/enumeration/transportation-method.enum';
 
 @Component({
     selector: 'app-path-node',
@@ -10,25 +12,33 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 export class PathNodeComponent implements OnInit {
     @ViewChild('nodeContainer') pathNodeRef!: ElementRef;
     @Input() mapScale: any;
-    @Input() node: any;
+    @Input({ required: true }) node!: Node;
     taxi: boolean = false;
     bus: boolean = false;
     underground: boolean = false;
     ferry: boolean = false;
 
     ngOnInit(): void {
-        for (let i = 0; i < this.node.moves.length; i++) {
-            if (this.node.moves[i].transport == 'taxi') {
-                this.taxi = true;
-            } else if (this.node.moves[i].transport == 'bus') {
-                this.bus = true;
-            } else if (this.node.moves[i].transport == 'underground') {
-                this.underground = true;
-            } else if (this.node.moves[i].transport == 'ferry') {
-                this.ferry = true;
+        for (let i = 0; i < this.node.edges.length; i++) {
+            switch(this.node.edges[i].transportMethod) {
+                case TransportMethod.Taxi: {
+                    this.taxi = true;
+                    break;
+                }
+                case TransportMethod.Bus: {
+                    this.bus = true;
+                    break;
+                }
+                case TransportMethod.Underground: {
+                    this.underground = true;
+                    break;
+                }
+                case TransportMethod.Ferry: {
+                    this.ferry = true;
+                    break;
+                }
             }
         }
-        // console.log('taxi', this.taxi, 'bus', this.bus, 'underground', this.underground, 'ferry', this.ferry);
     }
 
     ngOnChanges() {

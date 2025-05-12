@@ -11,8 +11,6 @@ export class CameraService {
 
     constructor() {
         this.onResize();
-        // this.position.x = this.viewport.x / 2;
-        // this.position.y = this.viewport.y / 2;
     }
 
     translate(delta: Vector2) {

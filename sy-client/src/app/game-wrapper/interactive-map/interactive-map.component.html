@@ -1,5 +1,5 @@
 <div class="map-container">
-    <!-- <div
+    <div
         class="map"
         #map
         (mousedown)="onMouseDown($event)"
@@ -8,8 +8,8 @@
         (mouseleave)="onMouseUp()"
         (wheel)="onZoom($event)"
     >
-        @for (node of nodes; track node.node_number) {
-            <app-path-node class="node-container" [mapScale]="mapScale" [node]="node"> </app-path-node>
+        @for (node of nodeList; track $index) {
+            <app-path-node class="node-container" [mapScale]="mapScale" [node]="node"></app-path-node>
         }
-    </div> -->
+    </div>
 </div>

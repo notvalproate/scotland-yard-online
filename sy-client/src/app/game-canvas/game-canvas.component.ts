@@ -16,7 +16,6 @@ export class GameCanvasComponent implements AfterViewInit {
     private renderer: RendererService = inject(RendererService);
 
     @ViewChild('gameCanvas', { static: false }) private gameCanvas!: ElementRef<HTMLCanvasElement>;
-    private ctx: CanvasRenderingContext2D | null = null;
 
     isHolding = false;
     private lastMousePosition: Vector2 = { x: 0, y: 0 };
