@@ -11,6 +11,12 @@ export class CameraService {
 
     constructor() {
         this.onResize();
+        // this.position.x = this.viewport.x / 2;
+        // this.position.y = this.viewport.y / 2;
+    }
+
+    getViewport(): Vector2 {
+        return this.viewport;
     }
 
     getPosition(): Vector2 {
@@ -34,15 +40,15 @@ export class CameraService {
 
     worldToScreenPoint(point: Vector2): Vector2 {
         return {
-            x: (this.viewport.x / 2) + ((point.x - this.position.x) * this.scale),
-            y: (this.viewport.y / 2) - ((point.y - this.position.y) * this.scale)
+            x: this.viewport.x / 2 + (point.x - this.position.x) * this.scale,
+            y: this.viewport.y / 2 - (point.y - this.position.y) * this.scale,
         };
     }
 
     screenToWorldPoint(point: Vector2): Vector2 {
         return {
-            x: this.position.x + (point.x - (this.viewport.x / 2)) / this.scale,
-            y: this.position.y + ((this.viewport.y / 2) - point.y) / this.scale
+            x: this.position.x + (point.x - this.viewport.x / 2) / this.scale,
+            y: this.position.y + (this.viewport.y / 2 - point.y) / this.scale,
         };
     }
 
