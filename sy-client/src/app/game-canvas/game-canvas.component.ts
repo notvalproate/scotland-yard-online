@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, ElementRef, HostListener, inject, ViewChild } from '@angular/core';
+import { Vector2 } from '../../shared/interfaces/vector2.interface';
 import { CameraService } from '../../shared/services/camera.service';
 import { MapDataService } from '../../shared/services/map-data.service';
 import { RendererService } from '../../shared/services/renderer.service';
-import { Vector2 } from '../../shared/interfaces/vector2.interface';
+import { TextureService } from '../../shared/services/texture.service';
+import { Texture } from '../../shared/interfaces/texture.interface';
 
 @Component({
     selector: 'app-game-canvas',
@@ -14,6 +16,9 @@ export class GameCanvasComponent implements AfterViewInit {
     private mapDataService: MapDataService = inject(MapDataService);
     private camera: CameraService = inject(CameraService);
     private renderer: RendererService = inject(RendererService);
+    private textures: TextureService = inject(TextureService);
+
+    private mapTex: Texture = this.textures.get('map')!;
 
     @ViewChild('gameCanvas', { static: false }) private gameCanvas!: ElementRef<HTMLCanvasElement>;
 
@@ -27,13 +32,6 @@ export class GameCanvasComponent implements AfterViewInit {
             this.gameCanvas.nativeElement,
         );
         this.updateRenderer();
-
-        // const img = new Image();
-        // img.src = 'images/map.webp';
-
-        // img.onload = () => {
-        //     ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-        // };
     }
 
     @HostListener('window:resize', ['$event'])
@@ -46,7 +44,7 @@ export class GameCanvasComponent implements AfterViewInit {
     // No loop needed, can manually call on data update since the game doesnt require constant re-rendering
     private updateRenderer(): void {
         this.renderer.clearCanvas();
-        this.renderer.drawRect({ x: 0, y: 0 }, { x: 100, y: 100 });
+        this.renderer.drawTexture(this.mapTex, { x: 0, y: 0 }, { x: 2000, y: 2000 });
     }
 
     onMouseDown(event: MouseEvent): void {
@@ -62,7 +60,7 @@ export class GameCanvasComponent implements AfterViewInit {
         const newMousePosition = { x: event.clientX, y: event.clientY };
         const translation = {
             x: (this.lastMousePosition.x - newMousePosition.x) / this.camera.getScale(),
-            y: (newMousePosition.y - this.lastMousePosition.y) / this.camera.getScale()
+            y: (newMousePosition.y - this.lastMousePosition.y) / this.camera.getScale(),
         };
         this.camera.translate(translation);
         this.lastMousePosition = newMousePosition;
@@ -75,7 +73,7 @@ export class GameCanvasComponent implements AfterViewInit {
     }
 
     onMouseWheel(event: WheelEvent): void {
-        const newScale = this.camera.getScale() - (Math.sign(event.deltaY) * this.scrollScaleDelta)
+        const newScale = this.camera.getScale() - Math.sign(event.deltaY) * this.scrollScaleDelta;
 
         if (newScale > 3 || newScale <= 0.1) {
             return;
@@ -83,17 +81,17 @@ export class GameCanvasComponent implements AfterViewInit {
 
         const mousePos = {
             x: event.clientX,
-            y: event.clientY
-        }
+            y: event.clientY,
+        };
 
-        const previousMouseWorldPoint = this.camera.screenToWorldPoint(mousePos)
+        const previousMouseWorldPoint = this.camera.screenToWorldPoint(mousePos);
 
         this.camera.setScale(newScale);
 
-        const newMouseWorldPoint = this.camera.screenToWorldPoint(mousePos)
+        const newMouseWorldPoint = this.camera.screenToWorldPoint(mousePos);
         const translation = {
-            x: (previousMouseWorldPoint.x - newMouseWorldPoint.x),
-            y: (previousMouseWorldPoint.y - newMouseWorldPoint.y)
+            x: previousMouseWorldPoint.x - newMouseWorldPoint.x,
+            y: previousMouseWorldPoint.y - newMouseWorldPoint.y,
         };
 
         this.camera.translate(translation);

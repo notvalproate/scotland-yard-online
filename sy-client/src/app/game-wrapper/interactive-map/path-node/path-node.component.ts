@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Node } from '../../../../shared/interfaces/node.interface';
 import { TransportMethod } from '../../../../shared/enumeration/transportation-method.enum';
+import { Node } from '../../../../shared/interfaces/node.interface';
 
 @Component({
     selector: 'app-path-node',
@@ -20,7 +20,7 @@ export class PathNodeComponent implements OnInit {
 
     ngOnInit(): void {
         for (let i = 0; i < this.node.edges.length; i++) {
-            switch(this.node.edges[i].transportMethod) {
+            switch (this.node.edges[i].transportMethod) {
                 case TransportMethod.Taxi: {
                     this.taxi = true;
                     break;

@@ -1,9 +1,9 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 // import { nodes } from '../../../shared/interfaces/nodes';
-import { MapDataService } from '../../../shared/services/map-data.service';
-import { PathNodeComponent } from './path-node/path-node.component';
 import { nodes } from '../../../shared/data/nodes';
 import { Node } from '../../../shared/interfaces/node.interface';
+import { MapDataService } from '../../../shared/services/map-data.service';
+import { PathNodeComponent } from './path-node/path-node.component';
 
 @Component({
     selector: 'app-interactive-map',
