@@ -20,6 +20,7 @@ export class GameCanvasComponent implements AfterViewInit {
 
     isHolding = false;
     private lastMousePosition: Vector2 = { x: 0, y: 0 };
+    private readonly scrollScaleDelta = 0.1;
 
     ngAfterViewInit(): void {
         this.renderer.initializeRenderingContext(
@@ -72,5 +73,32 @@ export class GameCanvasComponent implements AfterViewInit {
 
     onMouseUp(): void {
         this.isHolding = false;
+    }
+
+    onMouseWheel(event: WheelEvent): void {
+        const newScale = this.camera.getScale() - (Math.sign(event.deltaY) * this.scrollScaleDelta)
+
+        if (newScale > 3 || newScale <= 0.1) {
+            return;
+        }
+
+        const mousePos = {
+            x: event.clientX,
+            y: event.clientY
+        }
+
+        const previousMouseWorldPoint = this.camera.screenToWorldPoint(mousePos)
+
+        this.camera.setScale(newScale);
+
+        const newMouseWorldPoint = this.camera.screenToWorldPoint(mousePos)
+        const translation = {
+            x: (previousMouseWorldPoint.x - newMouseWorldPoint.x),
+            y: (previousMouseWorldPoint.y - newMouseWorldPoint.y)
+        };
+
+        this.camera.translate(translation);
+
+        this.updateRenderer();
     }
 }

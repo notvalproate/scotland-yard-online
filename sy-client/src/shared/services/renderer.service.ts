@@ -42,8 +42,6 @@ export class RendererService {
             y: dimensions.y * this.cameraService.getScale(),
         };
 
-        console.log(newPos, newDim);
-
         this.ctx?.beginPath();
         this.ctx?.rect(newPos.x, newPos.y, newDim.x, newDim.y);
         this.ctx?.stroke();

@@ -5,5 +5,6 @@
     (mousemove)="onMouseMove($event)"
     (mouseup)="onMouseUp()"
     (mouseleave)="onMouseUp()"
+    (wheel)="onMouseWheel($event)"
     [style]="{ cursor: isHolding ? 'grabbing' : 'grab' }"
 ></canvas>
