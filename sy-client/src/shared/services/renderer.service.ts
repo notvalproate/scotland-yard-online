@@ -9,11 +9,25 @@ export class RendererService {
     private cameraService: CameraService = inject(CameraService);
 
     private ctx: CanvasRenderingContext2D | null = null;
+    private canvas: HTMLCanvasElement | null = null;
 
-    initializeRenderer(context: CanvasRenderingContext2D | null, canvas: HTMLCanvasElement): void {
+    initializeRenderingContext(context: CanvasRenderingContext2D | null, canvas: HTMLCanvasElement): void {
         this.ctx = context;
-        canvas.width = this.cameraService.getViewport().x;
-        canvas.height = this.cameraService.getViewport().y;
+        this.canvas = canvas;
+        this.updateCanvasDimensions();
+    }
+
+    updateCanvasDimensions(): void {
+        if (!this.canvas) {
+            return;
+        }
+        
+        this.canvas.width = this.cameraService.getViewport().x;
+        this.canvas.height = this.cameraService.getViewport().y;
+    }
+
+    clearCanvas(): void {
+        this.ctx?.clearRect(0, 0, this.cameraService.getViewport().x, this.cameraService.getViewport().y);
     }
 
     drawRect(position: Vector2, dimensions: Vector2): void {
@@ -27,6 +41,8 @@ export class RendererService {
             x: dimensions.x * this.cameraService.getScale(),
             y: dimensions.y * this.cameraService.getScale()
         };
+
+        console.log(newPos, newDim);
 
         this.ctx?.beginPath();
         this.ctx?.rect(newPos.x, newPos.y, newDim.x, newDim.y);

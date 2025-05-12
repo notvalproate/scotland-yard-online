@@ -18,10 +18,11 @@ export class GameCanvasComponent implements AfterViewInit {
     private ctx: CanvasRenderingContext2D | null = null;
 
     ngAfterViewInit(): void {
-        this.renderer.initializeRenderer(
+        this.renderer.initializeRenderingContext(
             this.gameCanvas.nativeElement.getContext('2d'), 
             this.gameCanvas.nativeElement
         );
+        this.updateRenderer();
 
         // const img = new Image();
         // img.src = 'images/map.webp';
@@ -34,10 +35,14 @@ export class GameCanvasComponent implements AfterViewInit {
     @HostListener('window:resize', ['$event'])
     onResize(event?: any): void {
         this.camera.onResize();
+        this.renderer.updateCanvasDimensions();
+        this.updateRenderer();
     }
 
     // No loop needed, can manually call on data update since the game doesnt require constant re-rendering
-    private renderingUpdate() {
+    private updateRenderer() {
+        this.renderer.clearCanvas();
+        // this.camera.setPosition({ x: 50, y: 50 });
         this.renderer.drawRect({ x: 0, y: 0}, { x: 100, y: 100 });
     }
 }
