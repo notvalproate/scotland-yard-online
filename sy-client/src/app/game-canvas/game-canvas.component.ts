@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, HostListener, inject, ViewChild }
 import { CameraService } from '../../shared/services/camera.service';
 import { MapDataService } from '../../shared/services/map-data.service';
 import { RendererService } from '../../shared/services/renderer.service';
+import { Vector2 } from '../../shared/interfaces/vector2.interface';
 
 @Component({
     selector: 'app-game-canvas',
@@ -17,10 +18,13 @@ export class GameCanvasComponent implements AfterViewInit {
     @ViewChild('gameCanvas', { static: false }) private gameCanvas!: ElementRef<HTMLCanvasElement>;
     private ctx: CanvasRenderingContext2D | null = null;
 
+    isHolding = false;
+    private lastMousePosition: Vector2 = { x: 0, y: 0 };
+
     ngAfterViewInit(): void {
         this.renderer.initializeRenderingContext(
-            this.gameCanvas.nativeElement.getContext('2d'), 
-            this.gameCanvas.nativeElement
+            this.gameCanvas.nativeElement.getContext('2d'),
+            this.gameCanvas.nativeElement,
         );
         this.updateRenderer();
 
@@ -40,9 +44,33 @@ export class GameCanvasComponent implements AfterViewInit {
     }
 
     // No loop needed, can manually call on data update since the game doesnt require constant re-rendering
-    private updateRenderer() {
+    private updateRenderer(): void {
         this.renderer.clearCanvas();
-        // this.camera.setPosition({ x: 50, y: 50 });
-        this.renderer.drawRect({ x: 0, y: 0}, { x: 100, y: 100 });
+        this.renderer.drawRect({ x: 0, y: 0 }, { x: 100, y: 100 });
+    }
+
+    onMouseDown(event: MouseEvent): void {
+        this.isHolding = true;
+        this.lastMousePosition = { x: event.clientX, y: event.clientY };
+    }
+
+    onMouseMove(event: MouseEvent): void {
+        if (!this.isHolding) {
+            return;
+        }
+
+        const newMousePosition = { x: event.clientX, y: event.clientY };
+        const translation = {
+            x: (this.lastMousePosition.x - newMousePosition.x) / this.camera.getScale(),
+            y: (newMousePosition.y - this.lastMousePosition.y) / this.camera.getScale()
+        };
+        this.camera.translate(translation);
+        this.lastMousePosition = newMousePosition;
+
+        this.updateRenderer();
+    }
+
+    onMouseUp(): void {
+        this.isHolding = false;
     }
 }

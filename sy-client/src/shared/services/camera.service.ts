@@ -15,6 +15,11 @@ export class CameraService {
         // this.position.y = this.viewport.y / 2;
     }
 
+    translate(delta: Vector2) {
+        this.position.x += delta.x;
+        this.position.y += delta.y;
+    }
+
     getViewport(): Vector2 {
         return this.viewport;
     }

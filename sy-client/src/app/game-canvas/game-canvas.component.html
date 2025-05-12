@@ -1,1 +1,9 @@
-<canvas class="game-canvas" #gameCanvas></canvas>
+<canvas
+    class="game-canvas"
+    #gameCanvas
+    (mousedown)="onMouseDown($event)"
+    (mousemove)="onMouseMove($event)"
+    (mouseup)="onMouseUp()"
+    (mouseleave)="onMouseUp()"
+    [style]="{ cursor: isHolding ? 'grabbing' : 'grab' }"
+></canvas>
